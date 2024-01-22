@@ -90,7 +90,7 @@ container.addEventListener("click", createModal);
     <img
         class="modal-image"
         src="${event.target.getAttribute("data-source")}"
-        alt = "something went wrong"
+        alt = "${event.target.getAttribute("alt")}"
     />
     </div>`
 )
