@@ -97,6 +97,8 @@ container.addEventListener("click", createModal);
     modal.show();
 
     container.addEventListener("keydown", closeModal);
+
+    
     function closeModal(event) {
         if(event.which == 27){
             modal.close();
