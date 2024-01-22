@@ -102,7 +102,7 @@ container.addEventListener("click", createModal);
     function closeModal(event) {
         if(event.which == 27){
             modal.close();
-            container.removeEventListener("keydown");
+            container.removeEventListener("keydown", closeModal);
         }
     }
 };
