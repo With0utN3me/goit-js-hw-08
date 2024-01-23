@@ -66,44 +66,47 @@ const images = [
 const container = document.querySelector(".gallery");
 
 for (const{ preview, original, description } of images) {
-    container.insertAdjacentHTML("beforeend",
-    `<li class="gallery-item">
-    <a class="gallery-link" href="${original}" onclick="event.preventDefault()">
-    <img
-        class="gallery-image"
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
-    />
-    </a>
-    </li>`)
-};
+        container.insertAdjacentHTML("beforeend",
+        `<li class="gallery-item">
+        <a class="gallery-link" href="${original}" onclick="event.preventDefault()">
+        <img
+            class="gallery-image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+        />
+        </a>
+        </li>`)
+    };
 
 
 container.addEventListener("click", createModal);
-    function createModal(event){
+function createModal(event){
     if(event.target.nodeName !== "IMG"){
-    return;
-}
-    const modal = basicLightbox.create(`
-    <div class="modal">
-    <img
-        class="modal-image"
-        src="${event.target.getAttribute("data-source")}"
-        alt = "${event.target.getAttribute("alt")}"
-    />
-    </div>`
-)
+        return;
+    }
+
+
+    var modal = basicLightbox.create(`
+        <div class="modal">
+        <img
+            class="modal-image"
+            src="${event.target.getAttribute("data-source")}"
+            alt = "${event.target.getAttribute("alt")}"
+        />
+        </div>`,
+    {
+        onShow: () => {
+            document.addEventListener("keydown", closeModal);
+        },
+        onClose: () => {
+            document.removeEventListener("keydown", closeModal);
+        }
+    })
     modal.show();
-
-    container.addEventListener("keydown", closeModal);
-
-    
     function closeModal(event) {
         if(event.which == 27){
             modal.close();
-            container.removeEventListener("keydown", closeModal);
         }
     }
 };
-
